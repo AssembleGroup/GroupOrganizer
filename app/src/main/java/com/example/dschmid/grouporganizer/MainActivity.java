@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         TextView tvtextView = (TextView) findViewById(R.id.textView);
-        tvtextView.setText("Hello " + name + " your Password is " + password);
+        tvtextView.setText("Hello " + name + " your Password is " + password + "new");
+
     }
 }
