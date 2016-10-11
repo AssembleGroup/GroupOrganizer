@@ -3,7 +3,6 @@ package com.example.dschmid.grouporganizer;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -350,7 +349,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (succes) {
 
-                Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent mainIntent = new Intent(LoginActivity.this, FeedActivity.class);
                 mainIntent.putExtra("Email",mEmail);
                 mainIntent.putExtra("Password",mPassword);
                 LoginActivity.this.startActivity(mainIntent);
