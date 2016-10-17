@@ -23,6 +23,7 @@ public class FeedItem {
         this.url = url;
     }
 
+
     public int getId() {
         return id;
     }
