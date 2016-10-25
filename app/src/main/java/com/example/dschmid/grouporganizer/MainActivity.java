@@ -14,27 +14,41 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnMenuTabSelectedListener;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ImageButton one;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        one=(ImageButton) findViewById(R.id.nav_btn_one);
-        one.setOnClickListener(new View.OnClickListener() {
+        BottomBar bottomBar = BottomBar.attach(this,savedInstanceState);
+        bottomBar.setItemsFromMenu(R.menu.bottom_button_menu, new OnMenuTabSelectedListener(){
             @Override
-            public void onClick(View v) {
-                FragmentExample searchFragment = new FragmentExample();
-                FragmentManager manager = getSupportFragmentManager();
-                manager.beginTransaction().replace(R.id.content_main, searchFragment, searchFragment.getTag()).commit();
+            public void onMenuItemSelected(int itemId) {
+                switch (itemId) {
+                    case R.id.item_one:
+                        FragmentExample searchFragment = new FragmentExample();
+                        FragmentManager manager = getSupportFragmentManager();
+                        manager.beginTransaction().replace(R.id.content_main, searchFragment, searchFragment.getTag()).commit();
+                        break;
+                    case R.id.item_two:
+                        Toast.makeText(MainActivity.this, "Item two", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.item_three:
 
+                        Toast.makeText(MainActivity.this, "Item three", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
+        bottomBar.setActiveTabColor("#C2185B");
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
