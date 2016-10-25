@@ -28,18 +28,18 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         BottomBar bottomBar = BottomBar.attach(this,savedInstanceState);
         bottomBar.setItemsFromMenu(R.menu.bottom_button_menu, new OnMenuTabSelectedListener(){
-            @Override
+
 
             public void onClick(View v) {
                 FeedFragment searchFragment = new FeedFragment();
                 FragmentManager manager = getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.content_main, searchFragment, searchFragment.getTag()).commit();
 
-
+            }
             public void onMenuItemSelected(int itemId) {
                 switch (itemId) {
                     case R.id.item_one:
-                        FragmentExample searchFragment = new FragmentExample();
+                        FeedFragment searchFragment = new FeedFragment();
                         FragmentManager manager = getSupportFragmentManager();
                         manager.beginTransaction().replace(R.id.content_main, searchFragment, searchFragment.getTag()).commit();
                         break;
