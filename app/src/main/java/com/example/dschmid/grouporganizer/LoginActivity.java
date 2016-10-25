@@ -223,7 +223,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 public void onResponse(JSONObject response) {
                     VolleyLog.d(TAG, "Response: " + response.toString());
                     if (response != null) {
-                        showProgress(false);
+                        showProgress(false,false);
 
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
 
@@ -233,7 +233,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     {
                         mPasswordView.setError(getString(R.string.error_incorrect_password));
                         mPasswordView.requestFocus();
-                        showProgress(false);
+                        showProgress(false,false);
                     }
 
 
