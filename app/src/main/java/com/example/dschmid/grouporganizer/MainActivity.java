@@ -1,8 +1,6 @@
 package com.example.dschmid.grouporganizer;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -29,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         one.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentExample searchFragment = new FragmentExample();
+                FeedFragment searchFragment = new FeedFragment();
                 FragmentManager manager = getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.content_main, searchFragment, searchFragment.getTag()).commit();
 
@@ -86,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
          if (id == R.id.nav_search) {
-             FragmentExample searchFragment = new FragmentExample();
+             FeedFragment searchFragment = new FeedFragment();
              FragmentManager manager = getSupportFragmentManager();
              manager.beginTransaction().replace(R.id.content_main, searchFragment, searchFragment.getTag()).commit();
 

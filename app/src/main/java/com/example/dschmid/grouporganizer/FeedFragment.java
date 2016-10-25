@@ -1,15 +1,15 @@
 package com.example.dschmid.grouporganizer;
 
-import android.annotation.SuppressLint;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.android.volley.Cache;
-import com.android.volley.Cache.Entry;
-import com.android.volley.Request.Method;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
@@ -25,25 +25,35 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class FeedActivity extends AppCompatActivity {
-    private static final String TAG = FeedActivity.class.getSimpleName();
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FeedFragment extends Fragment {
+    private static final String TAG = FeedFragment.class.getSimpleName();
     private ListView listView;
     private FeedListAdapter listAdapter;
     private List<FeedItem> feedItems;
     private String URL_FEED = "http://api.androidhive.info/feed/feed.json";
 
-    @SuppressLint("NewApi")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed);
+    public FeedFragment() {
+        // Required empty public constructor
+    }
 
-        listView = (ListView) findViewById(R.id.list);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+
+        listView = (ListView) view.findViewById(R.id.list);
 
         feedItems = new ArrayList<FeedItem>();
 
-        listAdapter = new FeedListAdapter(this, feedItems);
+        listAdapter = new FeedListAdapter(getActivity(), feedItems);
         listView.setAdapter(listAdapter);
 
         // These two lines not needed,
@@ -54,7 +64,7 @@ public class FeedActivity extends AppCompatActivity {
 
         // We first check for cached request
         Cache cache = AppController.getInstance().getRequestQueue().getCache();
-        Entry entry = cache.get(URL_FEED);
+        Cache.Entry entry = cache.get(URL_FEED);
         if (entry != null) {
             // fetch the data from cache
             try {
@@ -70,7 +80,7 @@ public class FeedActivity extends AppCompatActivity {
 
         } else {
             // making fresh volley request and getting json
-            JsonObjectRequest jsonReq = new JsonObjectRequest(Method.GET,
+            JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.GET,
                     URL_FEED, null, new Response.Listener<JSONObject>() {
 
                 @Override
@@ -92,7 +102,10 @@ public class FeedActivity extends AppCompatActivity {
             AppController.getInstance().addToRequestQueue(jsonReq);
         }
 
+        return view;
+
     }
+
 
     /**
      * Parsing json reponse and passing the data to feed view list adapter
@@ -130,7 +143,6 @@ public class FeedActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
 
 }
