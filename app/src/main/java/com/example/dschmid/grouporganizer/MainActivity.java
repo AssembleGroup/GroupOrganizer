@@ -29,13 +29,13 @@ public class MainActivity extends AppCompatActivity
         BottomBar bottomBar = BottomBar.attach(this,savedInstanceState);
         bottomBar.setItemsFromMenu(R.menu.bottom_button_menu, new OnMenuTabSelectedListener(){
             @Override
-<<<<<<< HEAD
+
             public void onClick(View v) {
                 FeedFragment searchFragment = new FeedFragment();
                 FragmentManager manager = getSupportFragmentManager();
                 manager.beginTransaction().replace(R.id.content_main, searchFragment, searchFragment.getTag()).commit();
 
-=======
+
             public void onMenuItemSelected(int itemId) {
                 switch (itemId) {
                     case R.id.item_one:
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(MainActivity.this, "Item three", Toast.LENGTH_SHORT).show();
                         break;
                 }
->>>>>>> origin/master
+
             }
         });
         bottomBar.setActiveTabColor("#C2185B");
