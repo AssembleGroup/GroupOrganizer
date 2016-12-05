@@ -64,6 +64,15 @@ public class FeedListAdapter extends BaseAdapter {
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
 
+        if(position%2==0)
+        {
+            convertView = inflater.inflate(R.layout.feed_item, null);
+
+        }
+        else
+        {
+            convertView = inflater.inflate(R.layout.feed_item_test, null);
+        }
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView timestamp = (TextView) convertView
                 .findViewById(R.id.timestamp);

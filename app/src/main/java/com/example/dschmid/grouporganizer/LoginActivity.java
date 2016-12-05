@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -72,10 +73,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -115,6 +121,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        View view = this.findViewById(android.R.id.content);
+        view.invalidate();
+
+    }
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -202,7 +215,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+            showProgress(true,false);
            /** mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);**/
             String URL_FEED = "http://assemble.sacredskull.net";
@@ -214,18 +227,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 public void onResponse(JSONObject response) {
                     VolleyLog.d(TAG, "Response: " + response.toString());
                     if (response != null) {
-                        showProgress(false);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showProgress(false,false);
+                            }
+                        });
+
 
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
 
 
                         LoginActivity.this.startActivity(mainIntent);
+
                     }
                     else
                     {
                         mPasswordView.setError(getString(R.string.error_incorrect_password));
                         mPasswordView.requestFocus();
-                        showProgress(false);
+                        mProgressView.setVisibility(View.GONE);
+                        mLoginFormView.setVisibility(View.VISIBLE);
+
 
                     }
 
@@ -239,7 +262,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     VolleyLog.d(TAG, "Error: " + error.getMessage());
                     mPasswordView.setError(getString(R.string.error_incorrect_password));
                     mPasswordView.requestFocus();
-                    showProgress(false);
+                    mProgressView.setVisibility(View.GONE);
+                    mLoginFormView.setVisibility(View.VISIBLE);
                 }
             });
 
@@ -295,6 +319,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            
         }
     }
 

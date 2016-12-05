@@ -45,7 +45,7 @@ public class AuthRequest extends JsonObjectRequest {
         String credentials = username + ":" + password;
         String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
         headerMap.put("Authorization", "Basic " + encodedCredentials);
-
+        headerMap.put("Content-Type","application/json");
         return headerMap;
     }
 }

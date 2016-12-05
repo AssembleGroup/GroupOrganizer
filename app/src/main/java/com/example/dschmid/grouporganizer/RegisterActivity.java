@@ -158,11 +158,26 @@ public class RegisterActivity extends AppCompatActivity  {
                         showProgress(false);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        showProgress(false);
                     }
                 }
             };
 
-            RegisterRequest jsonReq = new RegisterRequest(name,email,password, responseListener);
+                    RegisterRequest jsonReq = new RegisterRequest(name,email,password, responseListener,new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+
+
+
+                   /* mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();*/
+                    showProgress(false);
+
+                }
+            });
+
 
 
 
