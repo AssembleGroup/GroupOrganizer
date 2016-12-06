@@ -21,22 +21,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.example.dschmid.grouporganizer.Json.CreateGroupRequest;
 import com.example.dschmid.grouporganizer.app.AppController;
-import com.example.dschmid.grouporganizer.app.AuthRequest;
-import com.example.dschmid.grouporganizer.app.RegisterRequest;
+import com.example.dschmid.grouporganizer.Json.RegisterRequest;
 import com.example.dschmid.grouporganizer.data.FeedItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Map;
-
 
 
 public class RegisterActivity extends AppCompatActivity  {
@@ -184,6 +179,41 @@ public class RegisterActivity extends AppCompatActivity  {
 
             // Adding request to volley request queue
             AppController.getInstance().addToRequestQueue(jsonReq);
+
+
+
+            Response.Listener<String> responseListenerGroup = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+                    }
+                }
+            };
+
+            CreateGroupRequest jsonReqGroup = new CreateGroupRequest("MyGroup", responseListenerGroup,new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+
+
+
+
+
+                }
+            });
+
+
+
+
+
+            // Adding request to volley request queue
+            AppController.getInstance().addToRequestQueue(jsonReqGroup);
 
 
         }

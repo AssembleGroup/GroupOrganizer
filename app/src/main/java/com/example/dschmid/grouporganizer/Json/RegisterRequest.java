@@ -1,4 +1,4 @@
-package com.example.dschmid.grouporganizer.app;
+package com.example.dschmid.grouporganizer.Json;
 
 /**
  * Created by DSchmid on 19.10.16.
